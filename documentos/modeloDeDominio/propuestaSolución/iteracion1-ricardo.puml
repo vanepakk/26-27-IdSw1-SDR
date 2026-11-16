@@ -1,0 +1,92 @@
+@startuml
+top to bottom direction
+
+
+' === CONFIGURACIÓN VISUAL CLÁSICA ===
+skinparam monochrome true
+skinparam linetype ortho
+skinparam nodesep 100
+skinparam ranksep 130
+skinparam Padding 6
+hide circle
+
+
+' === DEFINICIÓN DE CLASES ===
+class "FUNIBER (Organización)" as FUNIBER
+class "Dominio Territorial" as DomTerritorial
+class "Plataforma Web Central" as WebCentral
+class "Convenio" as Convenio
+class "Proyecto de Investigación" as Proyecto
+
+
+class "Dominio Principal" as DomPrincipal
+class "Directorio País" as DirPais
+class "Actividad (Evento)" as Evento
+class "Universidad" as Universidad
+class "Artículo Científico" as Articulo
+
+
+class "Programa Académico" as Programa
+class "Información de Contacto" as Contacto
+class "Idioma" as Idioma
+class "Publicación" as Publicacion
+
+
+class "Beca" as Beca
+class "Denominación del Programa" as Denominacion
+
+
+class "País" as Pais
+class "Marco Normativo" as Normativa
+
+
+' === RELACIONES DEL DOMINIO ===
+
+
+' Redirección
+DomTerritorial ---> Pais : " corresponde a\n"
+' AQUÍ: Empujado mucho más a la derecha con espacios
+DomTerritorial --> DomPrincipal : "\n                                                                                                                                          centraliza tráfico en"
+
+
+' Institucional
+FUNIBER --> Programa : " ofrece"
+FUNIBER --> WebCentral : " gestiona"
+FUNIBER --> Convenio : " establece"
+FUNIBER --> Proyecto : " financia"
+
+
+Convenio --> Universidad : " vincula a"
+
+
+' Plataforma Central y Directorios
+WebCentral --> DomPrincipal : " se aloja en\n"
+WebCentral --> DirPais : " unifica y estructura\n\n"
+
+
+' Detalles por País
+DirPais --> Programa : " promueve"
+DirPais ---> Pais : "\n\n adapta contenido a"
+' AQUÍ: Bajado con \n y empujado a la derecha con espacios
+DirPais --> Contacto : "\n\n\n                       dispone de"
+DirPais --> Idioma : " soporta\n"
+DirPais --> Publicacion : " divulga\n"
+
+
+' Programas y Becas
+Programa --> Beca : " ofrece"
+Programa --> Denominacion : " recibe"
+Denominacion --> Pais : " varía según"
+
+
+' Legal
+Pais --> Normativa : " se rige por"
+
+
+' Divulgación e Investigación
+Evento --> Publicacion : " se asocia a\n"
+Proyecto --> Articulo : "\n produce"
+Articulo --> Publicacion : " es una"
+
+
+@enduml
