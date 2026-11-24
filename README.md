@@ -36,3 +36,19 @@ Se desarrolla, en un caso real, la disciplina de requisitado, que es la puerta d
 - Se recomienda utilizar el repo del coordinador del grupo y las herramientas de GitHub para gestionar las reuniones y comunicaciones con el cliente, haciendo racional uso de la trazabilidad.
 - Las imágenes, en la medida de lo posible en formato plantUML. 
   - Todas las fuentes en la carpeta modelosUML y las imágenes exportadas, en formato svg.
+
+## Propuesta de solución: Gestor Web
+
+El modelo final y sus iteraciones están disponibles en `modelosUML/`:
+
+| Versión | Fuente PlantUML | Diagrama SVG |
+|---|---|---|
+| Iteración 1 | [iteracion1GestorWeb.puml](modelosUML/iteracion1GestorWeb.puml) | [iteracion1GestorWeb.svg](modelosUML/iteracion1GestorWeb.svg) |
+| Iteración 2 | [iteracion2GestorWeb.puml](modelosUML/iteracion2GestorWeb.puml) | [iteracion2GestorWeb.svg](modelosUML/iteracion2GestorWeb.svg) |
+| Final | [modeloDominioSolucionGestorWeb.puml](modelosUML/modeloDominioSolucionGestorWeb.puml) | [modeloDominioSolucionGestorWeb.svg](modelosUML/modeloDominioSolucionGestorWeb.svg) |
+
+### Conclusiones para la revisión cruzada
+
+Las iteraciones refinan la propuesta desde un Gestor Web que centraliza las seis responsabilidades hasta un modelo con entidades y relaciones explícitas. El modelo final relaciona cada responsabilidad con los elementos del dominio que modifica: el sitio y sus dominios; los directorios y países; los apartados; el contenido común; y las denominaciones adaptadas por país.
+
+La centralización de dominios y contenido permite mantener una estructura común, mientras que los directorios y las denominaciones permiten organizar y presentar la información según el país. El repositorio no incluye el modelo del dominio final previo; por ello, esta propuesta toma como base los conceptos y responsabilidades descritos en el issue y deja la validación de correspondencia con aquel modelo para la revisión cruzada.

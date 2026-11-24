@@ -1,0 +1,75 @@
+@startuml
+title Modelo del dominio de la solución — Gestor Web
+left to right direction
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+
+class "Gestor Web" as GestorWeb {
+  +gestionarWeb()
+  +unificarDominios()
+  +crearDirectoriosPorPais()
+  +organizarApartados()
+  +unificarContenido()
+  +adaptarDenominaciones()
+}
+
+package "Estructura centralizada" {
+  class SitioWeb {
+    nombre
+  }
+  class Dominio {
+    nombre
+  }
+  class DirectorioPais {
+    ruta
+  }
+}
+
+package "Contenido y adaptación" {
+  class Pais {
+    codigo
+    nombre
+  }
+  class Apartado {
+    nombreComun
+    orden
+  }
+  class Contenido {
+    identificador
+  }
+  class Denominacion {
+    texto
+    idioma
+  }
+}
+
+GestorWeb ..> SitioWeb : gestiona la web
+GestorWeb ..> Dominio : unifica los dominios
+GestorWeb ..> DirectorioPais : crea directorios por país
+GestorWeb ..> Apartado : organiza los apartados
+GestorWeb ..> Contenido : unifica el contenido
+GestorWeb ..> Denominacion : adapta las denominaciones
+
+SitioWeb "1" -- "1..*" Dominio : centraliza
+SitioWeb "1" -- "0..*" DirectorioPais : publica
+DirectorioPais "0..*" -- "1" Pais : corresponde a
+DirectorioPais "1" *-- "1..*" Apartado : organiza
+Apartado "1" *-- "1..*" Contenido : agrupa
+Apartado "1" *-- "1..*" Denominacion : muestra
+Denominacion "0..*" -- "1" Pais : se adapta a
+
+note right of GestorWeb
+  Punto único de gestión para resolver
+  la dispersión de dominios y contenido,
+  y mantener una estructura coherente
+  con adaptación por país.
+end note
+
+note bottom of SitioWeb
+  Cada dominio consolidado dirige al sitio
+  central. Cada directorio representa un país;
+  la estructura y el contenido comunes se
+  organizan en apartados y sus denominaciones
+  se ajustan al país correspondiente.
+end note
+@enduml

@@ -1,0 +1,43 @@
+@startuml
+title Iteración 2 — Descomposición del dominio
+left to right direction
+skinparam classAttributeIconSize 0
+
+class "Gestor Web" as GestorWeb {
+  gestionarWeb()
+  unificarDominios()
+  crearDirectoriosPorPais()
+  organizarApartados()
+  unificarContenido()
+  adaptarDenominaciones()
+}
+
+class SitioWeb
+class Dominio
+class Pais
+class DirectorioPais
+class Apartado
+class Contenido
+class Denominacion
+
+GestorWeb ..> SitioWeb : gestiona
+GestorWeb ..> Dominio : consolida
+GestorWeb ..> DirectorioPais : crea
+GestorWeb ..> Apartado : organiza
+GestorWeb ..> Contenido : unifica
+GestorWeb ..> Denominacion : adapta
+
+SitioWeb "1" -- "1..*" Dominio : reúne
+SitioWeb "1" -- "0..*" DirectorioPais : publica
+DirectorioPais "0..*" -- "1" Pais : corresponde a
+DirectorioPais "1" -- "1..*" Apartado : estructura
+Apartado "1" -- "1..*" Contenido : agrupa
+Apartado "1" -- "1..*" Denominacion : presenta como
+Denominacion "0..*" -- "1" Pais : varía por
+
+note bottom of GestorWeb
+  La propuesta separa la estructura común
+  del sitio de la organización y los nombres
+  específicos de cada país.
+end note
+@enduml

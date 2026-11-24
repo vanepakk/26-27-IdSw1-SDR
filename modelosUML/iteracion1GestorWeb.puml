@@ -1,0 +1,34 @@
+@startuml
+title Iteración 1 — Propuesta de solución con Gestor Web
+left to right direction
+skinparam classAttributeIconSize 0
+
+class "Gestor Web" as GestorWeb {
+  gestionarWeb()
+  unificarDominios()
+  crearDirectoriosPorPais()
+  organizarApartados()
+  unificarContenido()
+  adaptarDenominaciones()
+}
+
+class Web
+class Dominio
+class Pais
+class Apartado
+class Contenido
+
+GestorWeb ..> Web : gestiona
+GestorWeb ..> Dominio : unifica
+GestorWeb ..> Pais : crea directorios
+GestorWeb ..> Apartado : organiza
+GestorWeb ..> Contenido : unifica
+GestorWeb ..> Pais : adapta denominaciones
+
+note bottom of GestorWeb
+  Primera aproximación: concentra las seis
+  responsabilidades en un único gestor.
+  Las entidades y sus relaciones aún no
+  están suficientemente detalladas.
+end note
+@enduml
