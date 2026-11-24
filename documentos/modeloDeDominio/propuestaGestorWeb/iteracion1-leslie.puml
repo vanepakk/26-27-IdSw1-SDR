@@ -1,0 +1,88 @@
+@startuml modeloSolucionGestorWeb
+title <color:#2E7D32>Propuesta de solución — Gestor Web de FUNIBER</color>
+
+hide circle
+hide methods
+hide empty members
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype polyline
+skinparam nodesep 60
+skinparam ranksep 65
+skinparam ArrowColor #333333
+
+class "FUNIBER" as FUNIBER
+class "País" as Pais
+class "Particularidad legal" as PartLegal
+
+class "Gestor Web" as Gestor #B9E3B9 ##2E7D32
+
+class "Web FUNIBER" as Web
+class "Dominio principal" as DomPrincipal
+class "Dominio de país" as DomPais
+class "Directorio de país" as Directorio
+class "Apartado" as Apartado
+class "Idioma" as Idioma
+class "Contenido" as Contenido
+diamond TC
+diamond TP
+class "Proyecto de investigación" as Proyecto
+class "Publicación" as Publicacion
+class "Evento" as Evento
+class "Noticia" as Noticia
+class "Anuncio" as Anuncio
+class "Obra cultural" as ObraCultural
+class "Convenio" as Convenio
+class "Universidad" as Universidad
+class "Programa académico" as Programa
+class "Beca" as Beca
+class "Denominación" as Denominacion
+
+' ===== Responsabilidades del Gestor Web =====
+FUNIBER -right-> Gestor : usa
+Gestor -down-> Web : gestiona
+Gestor -down-> DomPais : unifica
+Gestor -down-> Directorio : crea
+DomPrincipal -[hidden]down- DomPais
+Gestor -down-> Apartado : organiza
+Gestor -down-> Contenido : unifica
+Gestor -down-> Denominacion : adapta
+
+' ===== Estructura de la web =====
+FUNIBER -down-> Proyecto : financia
+Web -left-> DomPrincipal : se accede por
+Web -down-> Directorio : se organiza en
+DomPais -right-> Directorio : se redirige a
+Directorio -down-> Pais : corresponde a
+Directorio -down-> PartLegal : se adapta a
+Directorio -down-> Apartado : presenta
+Apartado -down-> Idioma : está disponible en
+Apartado -down-> Contenido : muestra
+Contenido -[hidden]right- Idioma
+
+TC -up- Contenido : puede ser
+Proyecto <-up- TC
+Convenio <-up- TC
+Publicacion <-up- TC
+Evento <-up- TC
+Programa <-up- TC
+Beca <-up- TC
+Proyecto -[hidden]right- Convenio
+Convenio -[hidden]right- Publicacion
+Publicacion -[hidden]right- Evento
+Evento -[hidden]right- Programa
+Programa -[hidden]right- Beca
+
+TP -up- Publicacion : puede ser
+Noticia <-up- TP
+Anuncio <-up- TP
+Noticia -[hidden]right- Anuncio
+Evento -left-> Publicacion : genera
+ObraCultural <-up- Evento : puede ser
+Convenio -down-> Universidad : se establece con
+Beca -left-> Programa : está relacionada con
+Programa -down-> Denominacion : recibe
+Denominacion -up-> Pais : varía según
+Beca -[hidden]right- Denominacion
+
+@enduml
