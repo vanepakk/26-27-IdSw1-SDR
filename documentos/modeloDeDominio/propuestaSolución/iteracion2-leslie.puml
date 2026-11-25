@@ -1,0 +1,57 @@
+@startuml propuestaSolucionSinAtributos
+title Modelo del dominio — FUNIBER: propuesta de solución
+
+hide circle
+hide methods
+hide empty members
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype polyline
+skinparam nodesep 60
+skinparam ranksep 60
+
+class "FUNIBER" as FUNIBER
+class "Web FUNIBER" as Web
+class "Dominio principal" as DomPrincipal
+class "Dominio de país" as DomPais
+class "Directorio de país" as Directorio
+class "País" as Pais
+class "Particularidad legal" as PartLegal
+class "Apartado" as Apartado
+class "Idioma" as Idioma
+class "Programa académico" as Programa
+class "Denominación" as Denominacion
+class "Beca" as Beca
+class "Proyecto de investigación" as Proyecto
+class "Publicación" as Publicacion
+class "Convenio" as Convenio
+class "Universidad" as Universidad
+class "Actividad" as Actividad
+
+' Organización y web
+FUNIBER -down-> Web : tiene
+FUNIBER -down-> Proyecto : financia
+Web -left-> DomPrincipal : se accede por
+Web -down-> Directorio : se organiza en
+DomPais -right-> Directorio : se redirige a
+
+' País
+Directorio -right-> Pais : corresponde a
+Pais -down-> PartLegal : tiene
+
+' Apartados
+Directorio -down-> Apartado : presenta
+Apartado -left-> Idioma : está disponible en
+
+' Contenidos
+Apartado -down-> Publicacion : muestra
+Apartado -down-> Proyecto : muestra
+Apartado -down-> Actividad : muestra
+Apartado -down-> Convenio : muestra
+Apartado -down-> Programa : muestra
+
+Convenio -down-> Universidad : se establece con
+Programa -down-> Denominacion : recibe
+Beca -left-> Programa : está relacionada con
+Denominacion -up-> Pais : se utiliza en
+@enduml
