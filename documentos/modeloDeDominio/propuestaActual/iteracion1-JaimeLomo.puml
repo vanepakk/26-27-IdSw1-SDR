@@ -1,0 +1,63 @@
+@startuml iteracion1-JaimeLomo
+title Modelo del dominio — FUNIBER: iteracion1(Jaime)
+
+hide circle
+hide members
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam nodesep 40
+skinparam ranksep 50
+
+class "FUNIBER (organización)" as Funiber
+class "Web de FUNIBER" as WebFuniber
+class Dominio
+class "Dominio principal" as DominioPrincipal
+class "País" as Pais
+class "Sede regional" as SedeRegional
+class "Directorio país" as DirectorioPais
+class "Programa académico" as ProgramaAcademico
+class "Denominación del programa" as Denominacion
+class Beca
+class Universidad
+class Convenio
+class "Proyecto de investigación" as ProyectoInvestigacion
+class "Artículo científico" as ArticuloCientifico
+class "Actividad (evento)" as Actividad
+class "Información de contacto" as InformacionContacto
+class Idioma
+
+Funiber -- WebFuniber : tiene >
+Funiber -- ProgramaAcademico : ofrece >
+Funiber -- Convenio : establece >
+Convenio -- Universidad : con >
+
+WebFuniber -- Dominio : se publica en >
+WebFuniber -- ProyectoInvestigacion : promueve >
+WebFuniber -- ArticuloCientifico : divulga >
+WebFuniber -- SedeRegional : unifica >
+
+ProyectoInvestigacion -- ArticuloCientifico : produce >
+
+Dominio -- Pais : asociado a >
+
+ProgramaAcademico -- Denominacion : recibe >
+Denominacion -- Pais : según >
+Beca -- ProgramaAcademico : se aplica a >
+
+DirectorioPais -- DominioPrincipal : centraliza tráfico al mismo sitio >
+DirectorioPais -- SedeRegional : representa >
+SedeRegional -- ProgramaAcademico : adapta >
+SedeRegional -- Idioma : soporta >
+SedeRegional -- InformacionContacto : dispone de >
+SedeRegional -- Actividad : organiza >
+
+note right of DirectorioPais
+  Estado deseado pedido por el cliente.
+  Por validar.
+end note
+
+note as NotaCookies
+  Pendiente: política de cookies (Europa),
+  por aclarar si es clase, atributo o regla.
+end note
+@enduml

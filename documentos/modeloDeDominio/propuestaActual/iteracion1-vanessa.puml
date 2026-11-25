@@ -1,0 +1,73 @@
+@startuml
+ title Modelo del dominio - FUNIBER
+ top to bottom direction
+ skinparam monochrome true
+ skinparam shadowing false
+ skinparam linetype ortho
+ skinparam nodesep 45
+ skinparam ranksep 65
+ skinparam packageStyle rectangle
+ skinparam classFontSize 12
+ skinparam ArrowFontSize 10
+ hide circle
+ hide empty members
+
+ class "FUNIBER (organización)" as F
+ package "Estructura institucional" {
+  class "Sede regional" as S
+  class "País" as P
+  class "Marco normativo" as M
+  class "Convenio" as C
+  class "Universidad" as U
+ }
+ package "Presencia web" {
+  class "Web de FUNIBER" as W
+  class "Dominio principal" as DP
+  class "Directorio país" as D
+  class "Sitio web territorial" as WT
+  class "Dominio territorial" as DT
+ }
+ package "Oferta académica" {
+  class "Programa académico" as PA
+  class "Denominación del programa" as N
+  class "Beca" as B
+ }
+ package "Investigación y divulgación" {
+  class "Proyecto de investigación" as PI
+  class "Artículo científico" as A
+  class "Publicación" as PB
+  class "Actividad (evento)" as E
+ }
+ package "Información regional" {
+  class "Idioma" as I
+  class "Información de contacto" as IC
+ }
+
+ F --> S : opera mediante
+ F --> W : tiene
+ F --> C : establece
+ F --> PA : ofrece
+ F --> PI : financia
+ S --> P : se ubica en
+ P --> M : se rige por
+ C --> U : vincula
+ W --> DP : se publica en
+ W --> D : organiza
+ D --> DP : centraliza tráfico
+ D --> S : representa
+ S --> WT : gestiona actualmente
+ WT --> DT : utiliza
+ DT --> P : corresponde a
+ S --> I : soporta
+ S --> IC : dispone de
+ S --> E : organiza
+ S --> PA : adapta
+ PA --> N : recibe
+ PA --> B : ofrece
+ N --> P : varía según
+ PI --> A : produce
+ A --> PB : es una
+ E --> PB : se asocia a
+ W --> PB : divulga
+ note right of D : Propuesta por validar
+@enduml

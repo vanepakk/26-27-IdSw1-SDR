@@ -30,4 +30,4 @@ Se desarrolla, en un caso real, la disciplina de requisitado, que es la puerta d
 - Reuniones extra: de acuerdo a lo pautado con el cliente.
 - Se recomienda utilizar el repo del coordinador del grupo y las herramientas de GitHub para gestionar las reuniones y comunicaciones con el cliente, haciendo racional uso de la trazabilidad.
 - Las imágenes, en la medida de lo posible en formato plantUML. 
-  - Todas las fuentes en la carpeta modelosUML y las imágenes exportadas, en formato svg.# 26-27-IdSw1-SDR
+  - Todas las fuentes en la carpeta modelosUML y las imágenes exportadas, en formato svg.# 26-27-IdSw1-SDR .

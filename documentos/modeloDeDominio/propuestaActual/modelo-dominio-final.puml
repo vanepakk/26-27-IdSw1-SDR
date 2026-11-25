@@ -1,0 +1,82 @@
+@startuml
+title Modelo del dominio - FUNIBER
+top to bottom direction
+skinparam monochrome true
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 75
+skinparam ranksep 95
+hide circle
+hide empty members
+
+class "FUNIBER (Organización)" as F
+class "Sede regional" as S
+class "Web de FUNIBER" as W
+class "Convenio" as C
+class "Universidad" as U
+class "Programa académico" as PA
+class "Proyecto de investigación" as PI
+class "País" as P
+class "Marco normativo" as M
+class "Dominio principal" as DP
+class "Directorio país" as D
+class "Sitio web territorial" as WT
+class "Dominio territorial" as DT
+class "Denominación del programa" as N
+class "Beca" as B
+class "Artículo científico" as A
+class "Publicación" as PB
+class "Actividad (evento)" as E
+class "Idioma" as I
+class "Información de contacto" as IC
+
+F --> S : opera mediante
+F --> W : tiene
+F --> C : establece
+F --> PA : ofrece
+F --> PI : financia
+C --> U : vincula a
+S --> P : se ubica en
+P --> M : se rige por
+S --> WT : gestiona actualmente
+WT --> DT : se aloja en
+DT --> P : corresponde a
+DT --> DT : compite en tráfico con
+WT --> M : cumple
+W --> DP : se publica en
+W ..> D : organiza
+D ..> DP : centraliza tráfico
+D ..> S : representa
+S --> I : soporta
+S --> IC : dispone de
+S --> E : organiza
+S --> PA : adapta
+WT --> PA : promueve
+PA --> N : recibe
+N --> P : varía según
+B -up-> PA : se aplica a
+W --> PI : promueve
+PI --> A : produce
+A --> PB : es una
+E --> PB : se asocia a
+W --> PB : divulga
+WT --> PB : divulga actualmente
+
+note left of D
+Centralización web propuesta por el cliente.
+Pendiente de validación.
+end note
+note right of M
+Política de cookies en Europa:
+pendiente de aclaración.
+end note
+
+ ' Guías de distribución
+PA -[hidden]right-> S
+S -[hidden]right-> W
+W -[hidden]right-> PI
+PI -[hidden]right-> C
+PA -[hidden]down-> B
+S -[hidden]down-> WT
+W -[hidden]down-> D
+@enduml

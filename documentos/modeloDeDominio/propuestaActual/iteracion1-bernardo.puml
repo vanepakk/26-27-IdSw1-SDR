@@ -1,0 +1,88 @@
+@startuml
+top to bottom direction
+
+
+' === CONFIGURACIÓN VISUAL CLÁSICA ===
+skinparam monochrome true
+skinparam linetype ortho
+skinparam nodesep 100
+skinparam ranksep 130
+skinparam Padding 6
+hide circle
+hide empty members
+
+
+' === DEFINICIÓN DE CLASES ===
+class "FUNIBER (Organización)" as FUNIBER
+class "Sede" as Sede
+class "Sitio Web Territorial" as WebTerritorial
+class "Dominio Territorial" as DomTerritorial
+class "Convenio" as Convenio
+class "Proyecto de Investigación" as Proyecto
+
+
+class "Actividad (Evento)" as Evento
+class "Universidad" as Universidad
+class "Artículo Científico" as Articulo
+
+
+class "Programa Académico" as Programa
+class "Información de Contacto" as Contacto
+class "Idioma" as Idioma
+class "Publicación" as Publicacion
+
+
+class "Beca" as Beca
+class "Denominación del Programa" as Denominacion
+
+
+class "País" as Pais
+class "Marco Normativo" as Normativa
+
+
+' === RELACIONES DEL DOMINIO ===
+
+
+' Institucional
+FUNIBER --> Sede : " opera mediante"
+FUNIBER --> Programa : " ofrece"
+FUNIBER --> Convenio : " establece"
+FUNIBER --> Proyecto : " financia"
+
+
+Convenio --> Universidad : " vincula a"
+
+
+' Fragmentación Web Actual (As-Is)
+Sede --> Pais : " se ubica en\n"
+Sede --> WebTerritorial : " gestiona independientemente\n"
+WebTerritorial --> DomTerritorial : " se aloja en\n"
+DomTerritorial --> Pais : " corresponde a\n"
+DomTerritorial --> DomTerritorial : " compite en tráfico con"
+
+
+' Contenidos por Sitio Web Territorial
+WebTerritorial --> Programa : " promueve"
+WebTerritorial --> Contacto : " dispone de\n"
+WebTerritorial --> Idioma : " soporta\n"
+WebTerritorial --> Publicacion : " divulga\n"
+
+
+' Programas y Becas
+Programa --> Beca : " ofrece"
+Programa --> Denominacion : " recibe"
+Denominacion --> Pais : " varía según"
+
+
+' Legal
+Pais --> Normativa : " se rige por"
+WebTerritorial --> Normativa : " cumple"
+
+
+' Divulgación e Investigación
+Evento --> Publicacion : " se asocia a\n"
+Proyecto --> Articulo : "\n produce"
+Articulo --> Publicacion : " es una"
+
+
+@enduml
