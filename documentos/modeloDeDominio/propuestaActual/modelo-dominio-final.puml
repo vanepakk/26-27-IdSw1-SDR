@@ -3,9 +3,9 @@ title Modelo del dominio - FUNIBER
 top to bottom direction
 skinparam monochrome true
 skinparam shadowing false
-skinparam linetype polyline
-skinparam nodesep 30
-skinparam ranksep 75
+skinparam linetype ortho
+skinparam nodesep 75
+skinparam ranksep 95
 hide circle
 hide empty members
 
@@ -54,7 +54,7 @@ S --> PA : adapta
 WT --> PA : promueve
 PA --> N : recibe
 N --> P : varía según
-B --> PA : se aplica a
+B -up-> PA : se aplica a
 W --> PI : promueve
 PI --> A : produce
 A --> PB : es una
@@ -71,9 +71,12 @@ Política de cookies en Europa:
 pendiente de aclaración.
 end note
 
-' Guías de distribución (no son relaciones del dominio)
-C -[hidden]right-> PI
-PI -[hidden]right-> W
-W -[hidden]right-> S
-S -[hidden]right-> PA
+ ' Guías de distribución
+PA -[hidden]right-> S
+S -[hidden]right-> W
+W -[hidden]right-> PI
+PI -[hidden]right-> C
+PA -[hidden]down-> B
+S -[hidden]down-> WT
+W -[hidden]down-> D
 @enduml
