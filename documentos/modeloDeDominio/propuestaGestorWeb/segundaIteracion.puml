@@ -1,0 +1,106 @@
+@startuml modeloDominioGestorWeb
+hide circle
+hide methods
+hide empty members
+skinparam classAttributeIconSize 0
+skinparam minClassWidth 140
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 80
+skinparam ranksep 90
+skinparam packageStyle rectangle
+skinparam package {
+  BackgroundColor #EDEDED
+  BorderColor #333333
+}
+skinparam class {
+  BackgroundColor #D9D9D9
+  BorderColor #333333
+}
+
+
+class "Universidad" as Universidad
+class "Convenio" as Convenio
+
+package " " as Org {
+  class "**Funiber (organización)**" as Funiber
+  class "Proyecto de investigación" as Proyecto
+  class "Actividad" as Actividad
+  class "Evento internacional" as Evento
+  class "Artículo científico" as Articulo
+  class "Obra cultural" as ObraCultural
+  class "Noticia" as Noticia
+  class "Anuncio" as Anuncio
+  class "Publicación" as Publicacion
+  class "Programa académico" as Programa
+  class "Beca" as Beca
+  class "Titulación" as Titulacion
+  class "Marco normativo" as MarcoNormativo
+}
+
+class "País" as Pais
+
+package "Gestor-Web" as Gestor {
+  class "Dominio principal" as DomPrincipal
+  class "Directorio" as Directorio
+  class "Subdirectorio" as Subdirectorio
+  class "Editor" as Editor
+  class "Componente" as Componente {
+    idioma
+    contacto
+    denominación
+    programa
+  }
+  class "Contenido" as Contenido
+}
+
+' Fuera de la organización
+Universidad -right- Convenio : vincula
+Convenio -right- Funiber : establece
+
+' Organización
+Funiber -down- Proyecto : financia
+Funiber -down- Actividad : organiza
+Funiber -down- Evento : organiza
+Funiber -down- Anuncio : emite
+Funiber -right- Programa : ofrece
+Programa -down- Beca : ofrece
+Programa -down- Titulacion : recibe
+Proyecto -down- Articulo : produce
+Evento -down- ObraCultural : presenta
+ObraCultural -down- Noticia : genera
+Articulo -right- Noticia : sustenta
+Noticia -down- Publicacion : deriva
+Actividad -down- Publicacion : se asocia a
+Articulo -down- Publicacion : concluye
+Anuncio -down- Publicacion : culmina
+
+' País
+Titulacion -right- Pais : varía según
+MarcoNormativo -right- Pais : se rige
+
+' Gestor-Web
+DomPrincipal -down- Directorio : contiene
+Directorio -down- Subdirectorio : contiene
+Subdirectorio -down- Componente : se compone de
+Editor -down- Componente
+Componente -down- Contenido
+Pais -right- Subdirectorio : corresponde
+
+' Guías de colocación (invisibles)
+Universidad -[hidden]right-> Convenio
+Convenio -[hidden]right-> Funiber
+Programa -[hidden]right-> DomPrincipal
+Beca -[hidden]right-> Titulacion
+Titulacion -[hidden]down-> MarcoNormativo
+Proyecto -[hidden]right-> Actividad
+Actividad -[hidden]right-> Evento
+Evento -[hidden]right-> Anuncio
+Titulacion -[hidden]right-> Pais
+Pais -[hidden]right-> Subdirectorio
+Subdirectorio -[hidden]right-> Editor
+
+' Entre las dos zonas
+Org -right- Gestor : es gestionado por
+Org -right- Contenido : recibe
+@enduml
