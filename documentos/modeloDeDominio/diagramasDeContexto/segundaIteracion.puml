@@ -1,0 +1,89 @@
+@startuml DiagramaDeContexto000
+
+
+left to right direction
+skinparam linetype polyline
+hide empty description
+
+
+' Vista general: reúne los casos de uso de los TRES actores del Gestor Web
+' (Administrador, Editor y Visitante). Cada actor tiene su diagrama con su parte.
+
+
+' Un estado por cada clase de cerebro-v16, sin pareja lista/detalle:
+' mismo criterio que MODULOS_ABIERTO en el diagramaContextoAdmin de pyCelda.
+
+
+' Dos entradas: Administrador y Editor inician sesión; el Visitante no inicia
+' sesión y entra a la web con navegar(), que lo deja en los directorios públicos
+
+
+state SESION_CERRADA
+state SISTEMA_DISPONIBLE
+state DIRECTORIO_RAIZ_ABIERTO
+state DIRECTORIO_ABIERTO
+state SUBDIRECTORIO_ABIERTO
+state VISTA_ABIERTA
+state COMPONENTE_ABIERTO
+state HISTORIAL_VERSIONES_ABIERTO
+
+
+[*] --> SESION_CERRADA
+[*] --> DIRECTORIO_RAIZ_ABIERTO : navegar()
+
+
+' Sesión -- credenciales inválidas: self-loop explícito, como en pyCelda
+SESION_CERRADA --> SISTEMA_DISPONIBLE : iniciarSesion()
+SESION_CERRADA --> SESION_CERRADA : iniciarSesion()
+SESION_CERRADA <-- SISTEMA_DISPONIBLE : cerrarSesion()
+
+
+' DirectorioRaiz agrupa los Directorios (uno por País)
+SISTEMA_DISPONIBLE --> DIRECTORIO_RAIZ_ABIERTO : abrirDirectorioRaiz()
+SISTEMA_DISPONIBLE <-- DIRECTORIO_RAIZ_ABIERTO : abrirPanelGestor()
+
+
+' Directorio -- crearDirectorio() abre el directorio recién creado;
+' eliminarDirectorio() se hace desde DirectorioRaiz, sin abrirlo (como eliminarFacultad() en pyCelda)
+DIRECTORIO_RAIZ_ABIERTO --> DIRECTORIO_ABIERTO : crearDirectorio()\nabrirDirectorio()
+DIRECTORIO_RAIZ_ABIERTO --> DIRECTORIO_RAIZ_ABIERTO : eliminarDirectorio()
+DIRECTORIO_RAIZ_ABIERTO <-- DIRECTORIO_ABIERTO : abrirDirectorioRaiz()
+
+
+' Subdirectorio: composición de Directorio, se navega desde dentro de él;
+' eliminarSubdirectorio() desde el Directorio, sin abrirlo
+DIRECTORIO_ABIERTO --> SUBDIRECTORIO_ABIERTO : crearSubdirectorio()\nabrirSubdirectorio()
+DIRECTORIO_ABIERTO --> DIRECTORIO_ABIERTO : eliminarSubdirectorio()\neliminarVista()
+DIRECTORIO_ABIERTO <-- SUBDIRECTORIO_ABIERTO : abrirDirectorio()
+
+
+' Vista: cuelga de Directorio o de Subdirectorio; dos entradas, dos retornos.
+' crearVista() abre la vista nueva; editarVista() sin salir de ella;
+' eliminarVista() desde su Directorio o Subdirectorio, sin abrirla
+DIRECTORIO_ABIERTO --> VISTA_ABIERTA : crearVista()\nabrirVista()
+SUBDIRECTORIO_ABIERTO --> VISTA_ABIERTA : crearVista()\nabrirVista()
+SUBDIRECTORIO_ABIERTO --> SUBDIRECTORIO_ABIERTO : eliminarVista()
+DIRECTORIO_ABIERTO <-- VISTA_ABIERTA : abrirDirectorio()
+SUBDIRECTORIO_ABIERTO <-- VISTA_ABIERTA : abrirSubdirectorio()
+VISTA_ABIERTA --> VISTA_ABIERTA : editarVista()\nrellenarFormulario()\neliminarComponente()
+
+
+' Componente: composición de Vista. crearComponente() abre el componente nuevo;
+' eliminarComponente() desde la Vista, sin abrirlo.
+' El Contenido se cambia dentro del Componente (Editor -- Contenido : cambia)
+VISTA_ABIERTA --> COMPONENTE_ABIERTO : crearComponente()\nabrirComponente()
+VISTA_ABIERTA <-- COMPONENTE_ABIERTO : abrirVista()
+COMPONENTE_ABIERTO --> COMPONENTE_ABIERTO : editarComponente()\neditarContenido()
+
+
+' Historial: Vista, Componente y Contenido tienen 1..* Versión.
+' Las versiones son filas del historial: publicar/restaurar no cambian de estado
+' (Administrador -- Versión : publica / restaura)
+VISTA_ABIERTA --> HISTORIAL_VERSIONES_ABIERTO : abrirVersiones()
+COMPONENTE_ABIERTO --> HISTORIAL_VERSIONES_ABIERTO : abrirVersiones()
+HISTORIAL_VERSIONES_ABIERTO --> HISTORIAL_VERSIONES_ABIERTO : publicarVersion()\nrestaurarVersion()
+VISTA_ABIERTA <-- HISTORIAL_VERSIONES_ABIERTO : abrirVista()
+COMPONENTE_ABIERTO <-- HISTORIAL_VERSIONES_ABIERTO : abrirComponente()
+
+
+@enduml
