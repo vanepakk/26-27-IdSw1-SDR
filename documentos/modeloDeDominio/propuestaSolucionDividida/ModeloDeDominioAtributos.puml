@@ -6,6 +6,7 @@ skinparam shadowing false
 skinparam linetype ortho
 skinparam defaultFontName Arial
 skinparam defaultFontSize 17
+skinparam classAttributeFontSize 25
 skinparam classAttributeIconSize 0
 skinparam roundcorner 5
 skinparam nodesep 75
@@ -20,6 +21,8 @@ class "Convenio" as C {
     denominación
     fecha de inicio
     fecha de fin
+    objeto del convenio
+    condiciones
 }
 class "País" as PS {
     idioma
@@ -28,66 +31,87 @@ class "País" as PS {
 package "FUNIBER" as BF {
 class "FUNIBER (Organización)" as F {
     nombre
+    descripción
 }
 class "Investigación" as INV {
     tema
     objetivo
+    área de investigación
 }
 class "Proyecto de investigación" as I {
     título
     fecha de inicio
     estado
+    fecha de finalización
+    descripción
 }
 class "Artículo científico" as AC {
     título
     autoría
     fecha de publicación
+    resumen
+    idioma
 }
 class "Actividad" as A {
     nombre
     tipo de actividad
     fecha
+    descripción
+    lugar
 }
 class "Obra cultural" as O {
     título
     autoría
     tipo de obra
+    descripción
 }
 class "Evento internacional" as E {
     nombre
     fecha
     lugar
+    descripción
+    modalidad
 }
 class "Noticia" as N {
     título
     fecha
     texto
+    idioma
 }
 class "Anuncio" as AN {
     título
     fecha
     vigencia
+    descripción
 }
 class "Publicación" as P {
     título
     fecha de publicación
     idioma
+    tipo de publicación
 }
 class "Programa académico" as PA {
     denominación
     modalidad
     duración
+    descripción
+    área académica
+    nivel académico
 }
 class "Beca" as B {
     denominación
     condiciones
+    porcentaje de cobertura
+    plazo de solicitud
 }
 class "Titulación" as T {
     nombre de titulación
+    nivel de titulación
 }
 class "Marco normativo" as M {
     denominación
     normativa aplicable
+    fecha de vigencia
 }
 class "Usuario" as US {
     nombre
@@ -97,27 +121,37 @@ class "Formulario de información" as FO {
     nombre de contacto
     correo electrónico
     consulta
+    fecha de solicitud
+    teléfono de contacto
 }
 }
 package "GESTOR-WEB" as BW {
 class "Directorio raíz" as R {
     nombre
+    dominio web
 }
 class "Directorio" as D {
     nombre
+    ruta
 }
 class "Subdirectorio" as S {
     nombre
+    ruta
 }
 class "Vista" as V {
     nombre
+    título
 }
 class "Componente" as CO {
     tipo
+    denominación
+    orden de visualización
 }
 class "Contenido" as CT {
     texto
     idioma
+    título
+    formato
 }
 class "Administrador" as AD {
     nombre
@@ -130,7 +164,8 @@ class "Editor" as ED {
 class "Versión" as VE {
     estado
     número de versión
-    fecha de modificación
+    fecha
+    descripción de los cambios
 }
 enum "Tipo de componente" as TC {
     formulario
@@ -166,7 +201,7 @@ US --> P : ve
 US --> FO : rellena
 T -right-> PS : varía según
 M -right-> PS : se rige según
-R "1" -down-> "*" D : contiene
+R "1" -down-> "1..*" D : contiene
 D "1" -down-> "*" S : contiene
 PS "1" -right- "1" D : corresponde a
 D --> "1" V : tiene como principal
@@ -180,6 +215,7 @@ AD "1" --> "*" D : crea
 AD --> "*" S : crea
 AD --> CO : edita
 AD --> VE : publica
+AD --> VE : restaura
 ED --> CT : cambia
 AD --|> ED
 CO ..> TC

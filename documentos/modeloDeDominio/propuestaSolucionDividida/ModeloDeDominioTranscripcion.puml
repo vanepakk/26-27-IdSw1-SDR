@@ -52,6 +52,7 @@ class "Administrador" as AD
 class "Editor" as ED
 class "Versión" as VE {
     estado
+    fecha
 }
 enum "Tipo de componente" as TC {
     formulario
@@ -87,7 +88,7 @@ US --> P : ve
 US --> FO : rellena
 T -right-> PS : varía según
 M -right-> PS : se rige según
-R "1" -down-> "*" D : contiene
+R "1" -down-> "1..*" D : contiene
 D "1" -down-> "*" S : contiene
 PS "1" -right- "1" D : corresponde a
 D --> "1" V : tiene como principal
@@ -101,6 +102,7 @@ AD "1" --> "*" D : crea
 AD --> "*" S : crea
 AD --> CO : edita
 AD --> VE : publica
+AD --> VE : restaura
 ED --> CT : cambia
 AD --|> ED
 CO ..> TC
