@@ -1,0 +1,15 @@
+@startuml version-estados
+title Versión (Gestor Web) - Diagrama de estados
+hide empty description
+skinparam shadowing false
+skinparam monochrome true
+
+state "No publicado" as NoPublicado
+state "Publicado" as Publicado
+
+[*] --> NoPublicado : el Editor cambia el Contenido
+[*] --> NoPublicado : el Administrador edita el Componente
+NoPublicado --> Publicado : el Administrador publica
+Publicado --> NoPublicado : se publica una versión más nueva
+NoPublicado --> Publicado : se restaura
+@enduml

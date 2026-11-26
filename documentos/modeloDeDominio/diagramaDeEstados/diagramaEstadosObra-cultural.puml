@@ -1,0 +1,15 @@
+@startuml obra-cultural-estados
+title Obra cultural - Diagrama de estados
+hide empty description
+skinparam shadowing false
+skinparam monochrome true
+
+state "Promocionada" as Promocionada
+state "Presentada" as Presentada
+state "Finalizada" as Finalizada
+
+[*] --> Promocionada : se anuncia
+Promocionada --> Presentada : se presenta
+Presentada --> Finalizada : termina
+Finalizada --> [*]
+@enduml

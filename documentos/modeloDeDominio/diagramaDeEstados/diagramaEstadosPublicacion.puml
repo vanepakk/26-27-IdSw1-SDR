@@ -1,0 +1,14 @@
+@startuml publicacion-estados
+title Publicación - Diagrama de estados
+hide empty description
+skinparam shadowing false
+skinparam monochrome true
+
+state "No publicado" as NoPublicado
+state "Publicado" as Publicado
+
+[*] --> NoPublicado : se guarda como borrador
+[*] --> Publicado : se publica directamente
+NoPublicado --> Publicado : se publica
+Publicado --> NoPublicado : se despublica
+@enduml
