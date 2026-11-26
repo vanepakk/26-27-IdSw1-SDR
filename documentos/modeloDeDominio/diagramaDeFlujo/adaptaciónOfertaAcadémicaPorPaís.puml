@@ -1,0 +1,34 @@
+@startuml
+title Flujo de adaptación de oferta académica por país - Gestor-Web
+skinparam monochrome true
+skinparam shadowing false
+
+start
+:Seleccionar **País** (con su **idioma** y **denominación**);
+
+if (¿Existe **Directorio** asociado al **País**\nen el **Directorio raíz**?) then (No)
+  :Crear **Directorio** para el **País**;
+else (Sí)
+endif
+
+if (¿Existe el **Subdirectorio** del área\ncon la nomenclatura del **País**?) then (No)
+  :Crear **Subdirectorio** en el **Directorio**;
+  :Asociar **Vista** al **Subdirectorio**;
+  :Editar **Componente** (ej. tipo **formulario**);
+else (Sí)
+endif
+
+:Tomar el **Contenido** base del **Programa académico**\nde **FUNIBER** (con **Beca**, **Titulación** y **Marco normativo**);
+:Traducir **Contenido** al **idioma** del **País**\n(manteniendo el mismo contenido base);
+:Adaptar **nombre de titulación** y nombres locales\nsegún la **denominación** del **País** (ej. máster/maestría/magíster);
+:Actualizar **Contenido** dentro del **Componente**;
+:Registrar nueva **Versión** (de **Contenido**,\n**Componente** y **Vista**) con estado **no publicado**;
+
+if (¿Activar **Versión** en el **Directorio** del **País**?) then (Sí)
+  :Cambiar estado de la **Versión** a **publicado**\n(visible en la **Vista** del **Subdirectorio**);
+else (No)
+  :Guardar **Versión** en el historial\ncon estado **no publicado**;
+endif
+
+stop
+@enduml
