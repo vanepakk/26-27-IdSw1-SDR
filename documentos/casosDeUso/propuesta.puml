@@ -1,0 +1,87 @@
+@startuml actoresCasosUsoGestorWeb
+
+left to right direction
+
+' Vista general del Gestor Web: los mismos casos de uso que las transiciones del
+' DiagramaDeContexto000, con los mismos nombres. Cada actor tiene además su vista
+' propia (actoresCasosUsoAdministrador/Editor/Visitante.puml), mismos usecase id.
+
+actor Visitante
+actor Editor
+actor Administrador
+actor UsuarioNoLogueado
+
+' Visitante: no inicia sesión, entra a la web con navegar()
+usecase navegar as "navegar()"
+usecase rellenarFormulario as "rellenarFormulario()"
+
+' Navegación compartida
+usecase abrirDirectorioRaiz as "abrirDirectorioRaiz()"
+usecase abrirDirectorio as "abrirDirectorio()"
+usecase abrirSubdirectorio as "abrirSubdirectorio()"
+usecase abrirVista as "abrirVista()"
+
+' Editor: cambia el Contenido (Editor -- Contenido : cambia)
+usecase cerrarSesion as "cerrarSesion()"
+usecase abrirPanelGestor as "abrirPanelGestor()"
+usecase abrirComponente as "abrirComponente()"
+usecase editarContenido as "editarContenido()"
+usecase abrirVersiones as "abrirVersiones()"
+
+' Administrador: crea, edita y elimina la estructura (Directorio, Subdirectorio,
+' Vista, Componente) y publica y restaura Versión
+usecase crearDirectorio as "crearDirectorio()"
+usecase eliminarDirectorio as "eliminarDirectorio()"
+usecase crearSubdirectorio as "crearSubdirectorio()"
+usecase eliminarSubdirectorio as "eliminarSubdirectorio()"
+usecase crearVista as "crearVista()"
+usecase editarVista as "editarVista()"
+usecase eliminarVista as "eliminarVista()"
+usecase crearComponente as "crearComponente()"
+usecase editarComponente as "editarComponente()"
+usecase eliminarComponente as "eliminarComponente()"
+usecase publicarVersion as "publicarVersion()"
+usecase restaurarVersion as "restaurarVersion()"
+
+usecase iniciarSesion as "iniciarSesion()"
+
+navegar -- Visitante
+rellenarFormulario -- Visitante
+Visitante -- abrirDirectorioRaiz
+Visitante -- abrirDirectorio
+Visitante -- abrirSubdirectorio
+Visitante -- abrirVista
+
+abrirDirectorioRaiz -- Editor
+abrirDirectorio -- Editor
+abrirSubdirectorio -- Editor
+abrirVista -- Editor
+Editor -- cerrarSesion
+Editor -- abrirPanelGestor
+Editor -- abrirComponente
+Editor -- editarContenido
+Editor -- abrirVersiones
+
+' Administrador --|> Editor, igual que en cerebro-v16: hereda todos los casos
+' de uso del Editor y solo se le unen los propios
+Editor <|-- Administrador
+crearDirectorio -- Administrador
+eliminarDirectorio -- Administrador
+crearSubdirectorio -- Administrador
+eliminarSubdirectorio -- Administrador
+crearVista -- Administrador
+editarVista -- Administrador
+eliminarVista -- Administrador
+crearComponente -- Administrador
+editarComponente -- Administrador
+eliminarComponente -- Administrador
+publicarVersion -- Administrador
+restaurarVersion -- Administrador
+
+' iniciarSesion() lo invoca UsuarioNoLogueado: el rol (Editor o Administrador)
+' solo existe DESPUÉS de validar las credenciales -- mismo criterio que
+' actoresCasosUsoProfesor.puml de pyCelda. abrirPanelGestor() lo extiende.
+abrirPanelGestor ..> iniciarSesion : <<extend>>
+iniciarSesion -- UsuarioNoLogueado
+
+@enduml
