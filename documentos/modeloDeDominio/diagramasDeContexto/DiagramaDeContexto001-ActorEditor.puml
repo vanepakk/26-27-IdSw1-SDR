@@ -1,0 +1,28 @@
+@startuml DiagramaDeContexto001-ActorEditor
+title Diagrama de contexto · Editor
+hide empty description
+skinparam shadowing false
+skinparam nodesep 70
+skinparam ranksep 110
+left to right direction
+
+state DISPONIBLE
+state DIRECTORIO_RAIZ
+state DIRECTORIO_ABIERTO
+state SUBDIRECTORIO_ABIERTO
+state VISTA_ABIERTA
+
+[*] --> DISPONIBLE
+DISPONIBLE --> DIRECTORIO_RAIZ : iniciarSesion()
+DIRECTORIO_RAIZ --> DIRECTORIO_ABIERTO : abrirDirectorio()
+DIRECTORIO_ABIERTO --> SUBDIRECTORIO_ABIERTO : abrirSubdirectorio()
+SUBDIRECTORIO_ABIERTO --> VISTA_ABIERTA : abrirVista()
+DIRECTORIO_ABIERTO --> VISTA_ABIERTA : abrirVista()
+DIRECTORIO_RAIZ --> DIRECTORIO_RAIZ
+DIRECTORIO_ABIERTO --> DIRECTORIO_ABIERTO
+VISTA_ABIERTA --> VISTA_ABIERTA : editarContenido()\nabrirVersiones()
+SUBDIRECTORIO_ABIERTO <-- VISTA_ABIERTA : cerrarVista()
+DIRECTORIO_ABIERTO <-- SUBDIRECTORIO_ABIERTO : cerrarSubdirectorio()
+DIRECTORIO_RAIZ <-- DIRECTORIO_ABIERTO : cerrarDirectorio()
+DISPONIBLE <-- DIRECTORIO_RAIZ : cerrarSesion()
+@enduml
